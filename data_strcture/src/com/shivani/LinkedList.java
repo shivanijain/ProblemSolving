@@ -5,6 +5,7 @@ package com.shivani;
  */
 public class LinkedList {
     Node head;
+    static int count = 0;
     class Node {
         int data;
         Node next;
@@ -40,6 +41,12 @@ public class LinkedList {
 
         ll.deleteNode(ll.head,15);
         System.out.println("*********************************");
+        ll.printLikedlist(ll.head);
+        ll.deleteNodeAtPosition(ll.head,3);
+        System.out.println("*********************************");
+        ll.printLikedlist(ll.head);
+        System.out.println("*********************************");
+       ll.head = ll.reverse(ll.head);
         ll.printLikedlist(ll.head);
     }
 
@@ -85,6 +92,42 @@ public class LinkedList {
     }
 
     public Node deleteNodeAtPosition( Node head, int position) {
+
+        Node temp = head;
+        Node prev = null;
+        int pos = 0;
+        if( position == 0 ) {
+           head = head.next;
+           return head;
+        }
+
+        while( temp != null && pos != position ) {
+            pos++;
+            prev= temp;
+            temp = temp.next;
+        }
+
+        if( temp == null ) return head;
+        prev.next = temp.next;
         return head;
+    }
+
+    public int getCount(Node head) {
+        if( head == null )  return LinkedList.count = 0;
+         return LinkedList.count + getCount( head.next );
+    }
+
+    Node reverse(Node node) {
+        Node prev = null;
+        Node current = node;
+        Node next = null;
+        while (current != null) {
+            next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+        node = prev;
+        return node;
     }
 }
